@@ -1,0 +1,3 @@
+id,user_height,user_weight,user_age,user_gender,bestfit_angle_standard,bestfit_angle_relax,fsr_matrix_1d_datafile,fsr_matrix_2d_datafile,seat_datafile
+1,176,64,39,1,1036,811,20210303T160024-1d.csv,20210303T160024-2d.csv,data_01.xls
+2,176,64,39,1,1036,811,20210303T160024-1d.csv,20210303T160024-2d.csv,data_01.xls
