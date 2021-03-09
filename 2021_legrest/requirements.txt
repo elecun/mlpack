@@ -3,3 +3,4 @@ matplotlib
 notebook
 jupyterlab
 xlrd
+python-dateutil
