@@ -22,8 +22,7 @@ def datetime_convert(target_file):
 
     # converting to timestamp format
     converted_datetime = pd.to_datetime(fsr_data_time_s, unit='s')
-    print(converted_datetime)
-
+    #print(converted_datetime)
 
     # insert new column for time
     fsr_data.insert(0, "mtime", converted_datetime, True)
@@ -38,5 +37,6 @@ if __name__ == '__main__':
     del args[0]
     if len(args)==1:
         datetime_convert(args[0].split('-')[0])
+        print("done.")
     else:
-        print("too many arguments. only 1 argument(ex. 20210303T160024-1d.csv)")
+        print("too many arguments. only 1 argument(ex. 20210303T160024)")

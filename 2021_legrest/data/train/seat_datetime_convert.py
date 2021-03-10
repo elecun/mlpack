@@ -7,7 +7,7 @@ import sys
 def datetime_convert(target_file):
     
     # set filepath
-    filepath = "./"+target_file
+    filepath = "./"+target_file+".xls"
     print("converting file datetime format : ", filepath)
 
     # time format conversion (iso format to sec)
@@ -23,22 +23,16 @@ def datetime_convert(target_file):
     #print(seat_datetime.values)
 
     # split string
-    converted_list = [i.split('-') for i in seat_datetime.values]
-    a = ['-'.join(i[0:3])+" "+':'.join(i[3:6])+"."+i[6] for i in converted_list]
-    print(converted_list)
-
-
-    # converting to timestamp format
-    # converted_datetime = pd.to_datetime(fsr_data_time_s, unit='s')
-    # print(converted_datetime)
-
+    splited = [i.split('-') for i in seat_datetime.values]
+    converted = ['-'.join(i[0:3])+" "+':'.join(i[3:6])+"."+i[6] for i in splited]
+    #print(converted)
 
     # insert new column for time
-    # fsr_data.insert(0, "mtime", converted_datetime, True)
-    #print(fsr_data)
+    seat_data.insert(0, "mtime", converted, True)
+    #print(seat_data)
 
     # write file
-    # fsr_data.to_csv("./"+target_file+"-1dm.csv", index=False)
+    seat_data.to_csv("./"+target_file+"m.csv", index=False)
 
 
 if __name__ == '__main__':
@@ -46,5 +40,6 @@ if __name__ == '__main__':
     del args[0]
     if len(args)==1:
         datetime_convert(args[0])
+        print("done.")
     else:
-        print("too many arguments. only 1 argument(ex. data_01.xls)")
+        print("too many arguments. only 1 argument(ex. data_01)")
