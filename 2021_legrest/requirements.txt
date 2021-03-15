@@ -4,3 +4,4 @@ notebook
 jupyterlab
 xlrd
 python-dateutil
+sklearn
