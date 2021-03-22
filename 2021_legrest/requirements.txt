@@ -5,3 +5,4 @@ jupyterlab
 xlrd
 python-dateutil
 sklearn
+scipy
