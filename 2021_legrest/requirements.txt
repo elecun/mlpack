@@ -6,3 +6,4 @@ xlrd
 python-dateutil
 sklearn
 scipy
+hampel
