@@ -4,6 +4,7 @@ notebook
 jupyterlab
 xlrd
 python-dateutil
-sklearn
+scikit-learn
+scikit-image
 scipy
 hampel
