@@ -10,3 +10,4 @@ scipy
 hampel
 keras
 tensorflow
+opencv-python
