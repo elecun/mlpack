@@ -8,3 +8,5 @@ scikit-learn
 scikit-image
 scipy
 hampel
+keras
+tensorflow
