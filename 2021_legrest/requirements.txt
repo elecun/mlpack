@@ -1,3 +1,4 @@
+numpy==1.19.5
 pandas
 matplotlib
 notebook
@@ -9,5 +10,9 @@ scikit-image
 scipy
 hampel
 keras
-tensorflow
+tensorflow==2.4.1
+tensorflow-model-optimization
+tensorflow-hub
+tensorflow-addons
+tensorflow-tensorboard
 opencv-python
