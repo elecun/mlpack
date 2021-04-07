@@ -8,8 +8,9 @@ if [ -z "$1" ]
     exit 1
 fi
 
-for ((i=0; i<$1; i++));
+for ((i=1; i<=$1; i++));
 do
-  ffmpeg -framerate 25 -i ./images/fsr_matrix/$i/relax_crop_%d.jpg ./images/fsr_matrix/$i/relax_crop.avi
-  ffmpeg -framerate 25 -i ./images/fsr_matrix/$i/standard_crop_%d.jpg ./images/fsr_matrix/$i/standard_crop.avi
+  echo "converting..."$i
+  ffmpeg -framerate 25 -i ./images/fsr_matrix/$i/relax_crop_%d.jpg ./avi/relax_crop_$i.avi > /dev/null 2>&1
+  ffmpeg -framerate 25 -i ./images/fsr_matrix/$i/standard_crop_%d.jpg ./avi/standard_crop_$i.avi > /dev/null 2>&1
 done
