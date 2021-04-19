@@ -1,8 +1,11 @@
 import gatt
 
-manager = gatt.DeviceManager(adapter_name='auto')
+manager = gatt.DeviceManager(adapter_name='hci0')
 
 class AnyDevice(gatt.Device):
+    def device_discovered(self, device):
+        print("Discovered [%s] %s" % (device.mac_address, device.alias()))
+
     def connect_succeeded(self):
         super().connect_succeeded()
         print("[%s] Connected" % (self.mac_address))
@@ -41,7 +44,10 @@ class AnyDevice(gatt.Device):
 
 
 #device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
-device = AnyDevice(mac_address='40:A3:CC:E9:8E:D1', manager=manager)
-device.connect()
+#device = AnyDevice(mac_address='40:A3:CC:E9:8E:D1', manager=manager)
+#device.connect()
+
+manager = AnyDeviceManager(adapter_name='hci0')
+manager.start_discovery()
 
 manager.run()
