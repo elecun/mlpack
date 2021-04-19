@@ -40,7 +40,8 @@ class AnyDevice(gatt.Device):
         print("updated value:", value.decode("utf-8"))
 
 
-device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+#device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+device = AnyDevice(mac_address='40:A3:CC:E9:8E:D1', manager=manager)
 device.connect()
 
 manager.run()
