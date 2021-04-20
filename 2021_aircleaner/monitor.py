@@ -1,8 +1,15 @@
+
+'''
+ Air Cleaner Control/Sensor Monitoring Program
+'''
+
 import gatt
+from threading import Thread
+import tkinter as tk
 
 manager = gatt.DeviceManager(adapter_name='hci0')
 
-class AnyDevice(gatt.Device):
+class ACController(gatt.Device):
     def device_discovered(self, device):
         print("Discovered [%s] %s" % (device.mac_address, device.alias()))
 
@@ -43,11 +50,42 @@ class AnyDevice(gatt.Device):
         print("updated value:", value.decode("utf-8"))
 
 
-device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+# device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
 # device = AnyDevice(mac_address='40:A3:CC:E9:8E:D1', manager=manager)
-device.connect()
+# device.connect()
+# manager.run()
 
 # manager = AnyDevice(adapter_name='hci0')
 # manager.start_discovery()
 
-manager.run()
+def bt_thread_work(manager, interval_s):
+    manager.run()
+
+def win_thread_work():
+    window = tk.Tk()
+    t = tk.Label(text="Air Quality Monitoring System")
+    t.pack()
+
+    window.mainloop()
+
+
+
+
+
+if __name__ == '__main__':
+
+    # BLE device connect
+    device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+    device.connect()
+
+    bt_thread = Thread(bt_thread_work, args=(manager, 10))
+    bt_window = Thread(win_thread_work, args=())
+
+    # starting thread
+    bt_thread.start()
+    win_thread.start()
+
+    # join thread
+    bt_thread.join()
+    win_thread.join()
+
