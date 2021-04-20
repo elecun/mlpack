@@ -71,9 +71,10 @@ GUI window
 '''
 def win_thread_work():
     window = tk.Tk()
-    t = tk.Label(text="Air Quality Monitoring System")
+    t = tk.Label(text="Air Quality Monitoring System", anchor="e")
     t.pack()
 
+    window.attributes('-fullscreen', True)
     window.mainloop()
 
 
