@@ -6,6 +6,7 @@
 import gatt
 from threading import Thread
 import tkinter as tk
+import tkinter.font as tkFont
 
 manager = gatt.DeviceManager(adapter_name='hci0')
 
@@ -71,8 +72,12 @@ GUI window
 '''
 def win_thread_work():
     window = tk.Tk()
-    t = tk.Label(text="Air Quality Monitoring System", anchor="e")
-    t.pack()
+    window.title("Air Quality Monitoring System")
+    window.geometry("1024x600+0+0")
+    fontStyle = tkFont.Font(family="Lucida Grande", size=20, width=1024)
+
+    top_label = tk.Label(window, text="Air Quality Monitoring System", )
+    top_label.pack()
 
     window.attributes('-fullscreen', True)
     window.mainloop()
