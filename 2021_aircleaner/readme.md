@@ -27,3 +27,6 @@ Terminate with Ctrl+C
 # Note
 * if you use remote develop (with Tkinter), set environment DISPLAY=:0.0
 $ export DISPLAY=:0.0
+
+
+value: 0000aa05-0000-1000-8000-00805f9b34fb :[b'\xef', b'\x01']
