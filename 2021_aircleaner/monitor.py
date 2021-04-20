@@ -11,6 +11,7 @@ import tkinter.ttk as ttk
 import time
 from influxdb import InfluxDBClient
 import sys
+import struct
 
 manager = gatt.DeviceManager(adapter_name='hci0')
 db_thread_start_flag = False
@@ -70,9 +71,11 @@ class ACController(gatt.Device):
 
     def characteristic_value_updated(self, characteristic, value):
         print("value:", characteristic.uuid, ":%s" % [bytes([v]) for v in value])
+        print(type(value))
+        vlist = [bytes([v]) for v in value]
+        v = bytes([int(v,0) for v in vlist])
+        print(struct.unpack('!f', bytes.fromhex(v))[0])
 
-    def characteristic_read_value_failed(self, characteristic, error):
-        print(characteristic, "has error : ", error)
 
 # global
 device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
