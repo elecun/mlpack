@@ -58,14 +58,15 @@ class ACController(gatt.Device):
 # manager = AnyDevice(adapter_name='hci0')
 # manager.start_discovery()
 
-def bt_thread_work(interval_s):
-
-    # BLE device connect
-    device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
-    device.connect()
-
+'''
+Bluetooth handler
+'''
+def bt_thread_work(manager, interval_s):
     manager.run()
 
+'''
+GUI window
+'''
 def win_thread_work():
     window = tk.Tk()
     t = tk.Label(text="Air Quality Monitoring System")
@@ -79,8 +80,12 @@ def win_thread_work():
 
 if __name__ == '__main__':
 
-    bt_thread = Thread(bt_thread_work, args=(10))
-    bt_window = Thread(win_thread_work)
+    # BLE device connect
+    device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+    device.connect()
+
+    bt_thread = Thread(target=bt_thread_work, args=(manager, 10))
+    bt_window = Thread(target = win_thread_work)
 
     # starting thread
     bt_thread.start()
