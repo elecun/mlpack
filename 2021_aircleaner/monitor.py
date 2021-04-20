@@ -58,7 +58,12 @@ class ACController(gatt.Device):
 # manager = AnyDevice(adapter_name='hci0')
 # manager.start_discovery()
 
-def bt_thread_work(manager, interval_s):
+def bt_thread_work(interval_s):
+
+    # BLE device connect
+    device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
+    device.connect()
+
     manager.run()
 
 def win_thread_work():
@@ -74,11 +79,7 @@ def win_thread_work():
 
 if __name__ == '__main__':
 
-    # BLE device connect
-    device = ACController(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
-    device.connect()
-
-    bt_thread = Thread(bt_thread_work, args=(manager, 10))
+    bt_thread = Thread(bt_thread_work, args=(10))
     bt_window = Thread(win_thread_work)
 
     # starting thread
