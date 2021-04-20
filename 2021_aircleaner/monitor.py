@@ -10,6 +10,17 @@ import tkinter as tk
 manager = gatt.DeviceManager(adapter_name='hci0')
 
 class ACController(gatt.Device):
+    def read_value(self, serive_uuid, ch_uuid):
+        device_service = next(
+            s for s in self.services
+            if s.uuid == serive_uuid)
+
+        attr = next(
+            c for c in device_service.characteristics
+            if c.uuid == '0000aa02-0000-1000-8000-00805f9b34fb')
+
+        attr.read_value()
+
     def device_discovered(self, device):
         print("Discovered [%s] %s" % (device.mac_address, device.alias()))
 
@@ -47,16 +58,7 @@ class ACController(gatt.Device):
         attr.read_value()
 
     def characteristic_value_updated(self, characteristic, value):
-        print("updated value:", value.decode("utf-8"))
-
-
-# device = AnyDevice(mac_address='8C:AA:B5:BE:CA:2E', manager=manager)
-# device = AnyDevice(mac_address='40:A3:CC:E9:8E:D1', manager=manager)
-# device.connect()
-# manager.run()
-
-# manager = AnyDevice(adapter_name='hci0')
-# manager.start_discovery()
+        print("updated value:", value)
 
 '''
 Bluetooth handler
