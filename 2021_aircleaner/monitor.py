@@ -85,7 +85,7 @@ if __name__ == '__main__':
     device.connect()
 
     bt_thread = Thread(target=bt_thread_work, args=(manager, 10))
-    bt_window = Thread(target = win_thread_work)
+    win_window = Thread(target=win_thread_work)
 
     # starting thread
     bt_thread.start()
