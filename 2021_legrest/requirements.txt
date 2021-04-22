@@ -14,5 +14,5 @@ tensorflow==2.4.1
 tensorflow-model-optimization
 tensorflow-hub
 tensorflow-addons
-tensorflow-tensorboard
+tensorboard
 opencv-python
