@@ -16,3 +16,4 @@ tensorflow-hub
 tensorflow-addons
 tensorboard
 opencv-python
+statsmodels
