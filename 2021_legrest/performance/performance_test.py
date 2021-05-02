@@ -176,6 +176,10 @@ for idx in data_config.index:
     feature_1d = feature.reshape(feature.shape[0]) #(1??,)
     feature_set = np.vstack([feature_set, feature_1d[feature_pt:FEATURE_LENGTH+feature_pt]])
 
+    plt.figure()
+    plt.plot(feature_1d)
+    plt.savefig("{}/feature/standard_feature_1d_{}.png".format(CASE_PATH, idx), bbox_inches='tight', pad_inches=0)
+
     # data augmentation
     for aug in range(NUMBER_OF_SAMPLES):
         aug_1d = np.random.normal(mu, sigma, feature_1d.shape[0])
@@ -185,6 +189,7 @@ for idx in data_config.index:
 
     if SAVE_FEATURE_IMAGE == True:
         io.imsave("{}/feature/standard_feature2_{}.png".format(CASE_PATH, idx), feature_set.transpose())
+        
 
     augmented_data_dict[idx] = feature_set
     print(idx, ") generated data augmented :", augmented_data_dict[idx].shape)
