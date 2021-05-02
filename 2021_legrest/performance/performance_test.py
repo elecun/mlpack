@@ -160,7 +160,7 @@ for idx in data_config.index:
         feature_set = np.vstack([feature_set, feature_1d])
 
     if SAVE_FEATURE_IMAGE == True:
-        io.imsave("{}/feature/standart_feature_{}.png".format(CASE_PATH, idx), feature_set.transpose())
+        io.imsave("{}/feature/standard_feature1_{}.png".format(CASE_PATH, idx), feature_set.transpose())
     featureset_container[idx] = feature_set
     print("created featureset :", idx)
 
@@ -182,6 +182,9 @@ for idx in data_config.index:
         feature_1d = feature_1d + aug_1d
         np.clip(feature_1d, 0, None) # lower bound
         feature_set = np.vstack([feature_set, feature_1d[0:FEATURE_LENGTH]])
+
+    if SAVE_FEATURE_IMAGE == True:
+        io.imsave("{}/feature/standard_feature2_{}.png".format(CASE_PATH, idx), feature_set.transpose())
 
     augmented_data_dict[idx] = feature_set
     print(idx, ") generated data augmented :", augmented_data_dict[idx].shape)
