@@ -180,9 +180,9 @@ for idx in data_config.index:
     # data augmentation
     for aug in range(NUMBER_OF_SAMPLES):
         aug_1d = np.random.normal(mu, sigma, feature_1d.shape[0])
-        feature_1d = feature_1d + aug_1d
-        np.clip(feature_1d, 0, None) # lower bound
-        feature_set = np.vstack([feature_set, feature_1d[0:FEATURE_LENGTH]])
+        feature_1d_aug = feature_1d + aug_1d
+        np.clip(feature_1d_aug, 0, None) # lower bound
+        feature_set = np.vstack([feature_set, feature_1d_aug[0:FEATURE_LENGTH]])
 
 
     plt.figure()
