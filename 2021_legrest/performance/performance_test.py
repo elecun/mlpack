@@ -167,6 +167,7 @@ for idx in data_config.index:
 
 # classifier
 feature_pt = random.choice(np.arange(FEATURE_MAX_LENGTH-FEATURE_LENGTH)) # random point to segment
+print("feature segment point : {}".format(feature_pt))
 
 augmented_data_dict = {}
 for idx in data_config.index:
@@ -185,7 +186,7 @@ for idx in data_config.index:
 
 
     plt.figure()
-    plt.plot(feature_set)
+    plt.plot(feature_set.transpose())
     plt.savefig("{}/feature/standard_feature_1d_{}.png".format(CASE_PATH, idx), bbox_inches='tight', pad_inches=0)
 
     if SAVE_FEATURE_IMAGE == True:
