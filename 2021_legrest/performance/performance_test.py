@@ -22,7 +22,7 @@ from sklearn.metrics import precision_score
 
 
 '''
-Pre-definitions & Hyper-parameters
+Presets & Hyper-parameters
 '''
 CONFIGURATION_FILE_PATH = "./data/train/data_config.csv"
 DATASET_PATH = "./data/train/"
@@ -85,7 +85,9 @@ for idx in data_config.index:
     print("Seat Segments@Standard size : ", len(seat_loadcell_dataframe_standard_segment[idx]), ", Seat Segments@Relax size : ", len(seat_loadcell_dataframe_relax_segment[idx]))
 
 
-# save interpolated data & crop
+'''
+3. data crop & save data to 2d data
+'''
 crop_standard_interpolated_path = {}
 
 try:
@@ -139,7 +141,9 @@ for idx in data_config.index:
 
 
     
-# save feature
+'''
+4. Feature extraction (1D max pooling)
+'''
 try:
     os.mkdir("{}/feature".format(CASE_PATH)) # create diretory
 except FileExistsError:
@@ -163,7 +167,9 @@ for idx in data_config.index:
     print("created featureset :", idx)
 
 
-# classifier
+'''
+5. more feature extraction & data augmentation
+'''
 feature_pt = random.choice(np.arange(FEATURE_MAX_LENGTH-FEATURE_LENGTH)) # random point to segment
 print("feature segment point : {}".format(feature_pt))
 
@@ -195,6 +201,9 @@ for idx in data_config.index:
     print(idx, ") generated data augmented :", augmented_data_dict[idx].shape)
 
 
+'''
+6. model training & testing
+'''
 for test_count in range(NUMBER_OF_TESTING):
     # random selection for testing
     shuffled_index = np.array(list(data_config.index))
