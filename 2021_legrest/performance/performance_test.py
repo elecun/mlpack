@@ -181,10 +181,10 @@ for idx in data_config.index:
     for aug in range(NUMBER_OF_SAMPLES):
         aug_1d = np.random.normal(mu, sigma, feature_1d.shape[0])
         feature_1d_aug = feature_1d + aug_1d
-        np.clip(feature_1d_aug, 0, None) # lower bound
-        feature_set = np.vstack([feature_set, feature_1d_aug[0:FEATURE_LENGTH]])
+        #np.clip(feature_1d_aug, 0, None) # lower bound
+        feature_set = np.vstack([feature_set, feature_1d_aug[feature_pt:FEATURE_LENGTH+feature_pt]])
 
-
+    print("augmendted feature shape : {}".format(feature_set.shape))
     plt.figure()
     plt.plot(feature_set.transpose())
     plt.savefig("{}/feature/standard_feature_1d_{}.png".format(CASE_PATH, idx), bbox_inches='tight', pad_inches=0)
