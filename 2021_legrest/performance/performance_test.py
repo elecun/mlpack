@@ -1,5 +1,5 @@
 '''
- @brief     User Authentication with Support Vector Machine
+ @brief     User Classification with Linear SVM
  @author    Byunghun Hwang<bh.hwang@iae.re.kr>
 '''
 
@@ -22,7 +22,7 @@ from sklearn.metrics import precision_score
 
 
 '''
-Pre-definitions
+Pre-definitions & Hyper-parameters
 '''
 CONFIGURATION_FILE_PATH = "./data/train/data_config.csv"
 DATASET_PATH = "./data/train/"
@@ -41,13 +41,9 @@ SVM_KERNEL_METHOD = 'linear'
 NUMBER_OF_TESTING = 10
 IMAGE_HEIGHT = 369
 
-'''
-Hyper-parameters
-'''
-
 
 '''
-Code for performance test
+1. Load raw data from configuration file
 '''
 data_config = pd.read_csv(CONFIGURATION_FILE_PATH, header=0, index_col=0)
 print("Read configuration file shape : ", data_config.shape)
@@ -66,7 +62,9 @@ for idx in data_config.index:
     del fsr_dataframe[idx]['Measurement Time (sec)'] # remove unnecessary column
 
 
-# read data & save into dataframe
+'''
+2. extract segment from raw data
+'''
 fsr_dataframe_standard_segment = {}
 fsr_dataframe_relax_segment = {}
 seat_loadcell_dataframe_standard_segment = {}
