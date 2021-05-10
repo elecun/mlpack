@@ -209,7 +209,7 @@ for test_count in range(NUMBER_OF_TESTING):
     shuffled_index = np.array(list(data_config.index))
     random.shuffle(shuffled_index)
     pclass = shuffled_index[0:NUMBER_OF_RANDOM_SELECTION] # first 5 index select from shuffled_index
-    print("Selected Positive classes :", pclass)
+    print("Selected Positive User IDs :", pclass)
 
     # data split
     Xcon_train = np.array([], dtype=np.int64).reshape(0, FEATURE_LENGTH)
@@ -229,7 +229,6 @@ for test_count in range(NUMBER_OF_TESTING):
         Xcon_test = np.vstack([Xcon_test, X_test])
         ycon_test = np.hstack([ycon_test, y_test])
 
-    print("model is training...")
     model = svm.SVC(kernel=SVM_KERNEL_METHOD, C=1, probability=True, max_iter=MAX_TRAIN_ITERATION, verbose=False)
     model.fit(Xcon_train,ycon_train)
 
