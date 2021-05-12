@@ -128,28 +128,36 @@ print('Psearson Correlation :', stats.pearsonr(source['user_age'], source['bestf
 
 
 # bmi
-source = data_config.loc[:, ['user_weight','user_height', 'bestfit_angle_standard', 'bestfit_angle_relax']]
+source = data_config.loc[:, ['user_weight','user_height']]
 bmi = source['user_weight']/(source['user_height']/100*source['user_height']/100)
-source["bmi"] = bmi
+target = data_config.loc[:, ['bestfit_angle_standard']]
+target["bmi"] = bmi
 
-corr = source.corr(method='pearson')
+corr = target.corr(method='pearson')
 print('Pearson Correlation Coeff. (standard)\n', corr)
-print('Psearson Correlation :', stats.pearsonr(source['bmi'], source['bestfit_angle_standard']))
+print('Psearson Correlation :', stats.pearsonr(target['bmi'], target['bestfit_angle_standard']))
 
-corr = source.corr(method='pearson')
+target = data_config.loc[:, ['bestfit_angle_relax']]
+target["bmi"] = bmi
+
+corr = target.corr(method='pearson')
 print('Pearson Correlation Coeff. (relax)\n', corr)
-print('Psearson Correlation :', stats.pearsonr(source['bmi'], source['bestfit_angle_relax']))
+print('Psearson Correlation :', stats.pearsonr(target['bmi'], target['bestfit_angle_relax']))
 
 
 # bmr
-source = data_config.loc[:, ['user_weight','user_height', 'bestfit_angle_standard', 'user_age', 'bestfit_angle_relax']]
+source = data_config.loc[:, ['user_weight','user_height', 'user_age']]
 bmr = 66.47+(13.75*source['user_weight'])+(5*source['user_height'])-(6.76*source['user_age'])
-source["bmr"] = bmr
+target = data_config.loc[:, ['bestfit_angle_standard']]
+target["bmr"] = bmr
 
-corr = source.corr(method='pearson')
+corr = target.corr(method='pearson')
 print('Pearson Correlation Coeff. (standard)\n', corr)
-print('Psearson Correlation :', stats.pearsonr(source['bmr'], source['bestfit_angle_standard']))
+print('Psearson Correlation :', stats.pearsonr(target['bmr'], target['bestfit_angle_standard']))
 
-corr = source.corr(method='pearson')
+target = data_config.loc[:, ['bestfit_angle_relax']]
+target["bmr"] = bmr
+
+corr = target.corr(method='pearson')
 print('Pearson Correlation Coeff. (relax)\n', corr)
-print('Psearson Correlation :', stats.pearsonr(source['bmr'], source['bestfit_angle_relax']))
+print('Psearson Correlation :', stats.pearsonr(target['bmr'], target['bestfit_angle_relax']))
