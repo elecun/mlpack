@@ -1,4 +1,22 @@
-
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import os.path
+import gc
+from skimage import io, color
+import tensorflow as tf
+from tensorflow.keras.layers import MaxPool1D, GlobalMaxPooling1D
+from sklearn import svm
+from sklearn.datasets._samples_generator import make_blobs
+from tensorflow.keras.layers import MaxPool1D, GlobalMaxPooling1D
+from sklearn.model_selection import train_test_split
+import random
+from sklearn import metrics
+from sklearn.metrics import precision_score
+import scipy.stats as stats
+from statsmodels.formula.api import ols
+from statsmodels.stats.anova import anova_lm
 
 '''
 Presets & Hyper-parameters
@@ -178,4 +196,5 @@ for name, model in pipelines:
     results.append(cv_results)
     names.append(name)
     msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    print(cv_results)
     print(msg)
