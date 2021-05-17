@@ -106,6 +106,10 @@ from sklearn.datasets import make_regression
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import linear_model
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVR
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
 
 X = data_config.loc[:, ['user_height', 'user_weight', 'user_age']]
 bmr = 66.47+(13.75*X['user_weight'])+(5*X['user_height'])-(6.76*X['user_age'])
@@ -116,10 +120,12 @@ y = data_config.loc[:, ['bestfit_angle_standard']]
 
 X_train, X_test, y_train, y_test = train_test_split(X, np.ravel(y), test_size=0.2, random_state=1)
 
-#reg = LinearRegression().fit(X_train, y_train)
+# reg = LinearRegression().fit(X_train, y_train)
 # reg = LogisticRegression(random_state=0).fit(X_train, y_train)
-reg = linear_model.BayesianRidge().fit(X_train, y_train)
-print(reg.score(X, y))
+# reg = linear_model.BayesianRidge().fit(X_train, y_train)
+# reg = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.2)).fit(X_train, y_train)
+reg = DecisionTreeRegressor(max_depth=10, min_samples_leaf=0.13, random_state=1).fit(X_train, y_train) # r-squared : 0.344
+print(reg.score(X_train, y_train))
 
 print("X test\n", X_test)
 print("X test\n", y_test)
