@@ -1,0 +1,11 @@
+[general]
+device_name=SNOWBOARD2
+sensor_name=MS9758
+nrow=16
+ncol=10
+log_unit=ADC
+date=20210310T154900
+avg_log_interval_ms=50.00
+[display]
+colormap=RedMap
+colormap_max = 255
