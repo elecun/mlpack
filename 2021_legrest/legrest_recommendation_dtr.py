@@ -103,12 +103,12 @@ for a in ages:
             bmi = w/(h/100*h/100)
             pvs = model_standard.predict([[a,h,w,bmr,bmi]])
             pvr = model_relax.predict([[a,h,w,bmr,bmi]])
-            output_standard = output_standard.append({'age':a, 'height':h, 'weight':w, 'legrest':pvs}, ignore_index=True)
-            output_relax = output_relax.append({'age':a, 'height':h, 'weight':w, 'legrest':pvr}, ignore_index=True)
+            output_standard = output_standard.append({'age':a, 'height':h, 'weight':w, 'legrest':pvs[0]}, ignore_index=True)
+            output_relax = output_relax.append({'age':a, 'height':h, 'weight':w, 'legrest':pvr[0]}, ignore_index=True)
             count = count+1
             bar.update(count)
 bar.finish()
 
-output_standard.to_csv('result_standard.csv')
-output_relax.to_csv('result_relax.csv')
+output_standard.to_csv('result_standard.csv', index=False)
+output_relax.to_csv('result_relax.csv', index=False)
 print("saved results")
