@@ -42,6 +42,7 @@ X["bmr"] = bmr
 X["bmi"] = bmi
 ys = data_config.loc[:, ['bestfit_angle_standard']]
 yr = data_config.loc[:, ['bestfit_angle_relax']]
+del X["user_age"]
 
 
 '''
@@ -52,7 +53,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, np.ravel(ys), test_size=0
 print("------ Regression Model Evaluation (@standard) ------")
 model_standard = DecisionTreeRegressor(
     criterion = "mse",
-    max_depth=6, 
+    max_depth=50, 
     min_samples_leaf=1, 
     random_state=1).fit(X_train, y_train)
 
@@ -66,7 +67,7 @@ for name, value in zip(X_train.columns, model_standard.feature_importances_):
 print("------ Regression Model Evaluation (@relax) ------")
 model_relax = DecisionTreeRegressor(
     criterion = "mse", # mean square error
-    max_depth=6, 
+    max_depth=50, 
     min_samples_leaf=1, 
     random_state=1).fit(X_train, y_train)
 
@@ -95,21 +96,22 @@ heights = np.arange(150, 190, step=10)
 # weights = np.array([min_weight+i for i in range(max_weight-min_weight+1)])
 weights = np.arange(40, 100, step=10)
 
+print(X.head())
+
 bar = progressbar.ProgressBar(maxval=len(ages)*len(heights)*len(weights), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 bar.start()
-output_standard = pd.DataFrame(columns=['age','height','weight','legrest'])
-output_relax = pd.DataFrame(columns=['age','height','weight','legrest'])
+output_standard = pd.DataFrame(columns=['height','weight','legrest'])
+output_relax = pd.DataFrame(columns=['height','weight','legrest'])
 count = 0
 for a in ages:
     for h in heights:
         for w in weights:
             bmr = 66.47+(13.75*w)+(5*h)-(6.76*a)
             bmi = w/(h/100*h/100)
-            pvs = model_standard.predict([[a,h,w,bmr,bmi]])
-            pvr = model_relax.predict([[a,h,w,bmr,bmi]])
-            print("Predict Result : standard({}), relax({})".format(pvs[0], pvr[0]))
-            output_standard = output_standard.append({'age':a, 'height':h, 'weight':w, 'legrest':pvs[0]}, ignore_index=True)
-            output_relax = output_relax.append({'age':a, 'height':h, 'weight':w, 'legrest':pvr[0]}, ignore_index=True)
+            pvs = model_standard.predict([[h,w,bmr,bmi]])
+            pvr = model_relax.predict([[h,w,bmr,bmi]])
+            output_standard = output_standard.append({'height':h, 'weight':w, 'legrest':pvs[0]}, ignore_index=True)
+            output_relax = output_relax.append({'height':h, 'weight':w, 'legrest':pvr[0]}, ignore_index=True)
             count = count+1
             bar.update(count)
 bar.finish()
