@@ -47,8 +47,9 @@ yr = data_config.loc[:, ['bestfit_angle_relax']]
 '''
 DecisionTree Regression Model
 '''
-print("------ Regression Model Evaluation (@standard) ------")
 X_train, X_test, y_train, y_test = train_test_split(X, np.ravel(ys), test_size=0.33, shuffle=True)
+
+print("------ Regression Model Evaluation (@standard) ------")
 model_standard = DecisionTreeRegressor(
     criterion = "mse",
     max_depth=6, 
@@ -63,7 +64,6 @@ for name, value in zip(X_train.columns, model_standard.feature_importances_):
 
 
 print("------ Regression Model Evaluation (@relax) ------")
-X_train, X_test, y_train, y_test = train_test_split(X, np.ravel(yr), test_size=0.33, shuffle=True)
 model_relax = DecisionTreeRegressor(
     criterion = "mse", # mean square error
     max_depth=6, 
@@ -72,24 +72,28 @@ model_relax = DecisionTreeRegressor(
 
 print("* R-squared Score with Trainset (@relax) :", model_relax.score(X_train, y_train))
 print("* R-squared Score with Testset (@relax) :", model_relax.score(X_test, y_test))
-print("* Feature Impotances (@standard) :")
+print("* Feature Impotances (@relax) :")
 for name, value in zip(X_train.columns, model_relax.feature_importances_):
     print('  - {0}: {1:.3f}'.format(name, value))
 
 '''
 Output File Generation
 '''
-min_age = 10
-max_age = 80
-ages = np.array([min_age+i for i in range(max_age-min_age+1)])
+# min_age = 20
+# max_age = 80
+# ages = np.array([min_age+i for i in range(max_age-min_age+1)])
 
-min_height = 150
-max_height = 200
-heights = np.array([min_height+i for i in range(max_height-min_height+1)])
+ages = np.arange(20, 80, step=10)
 
-min_weight = 40
-max_weight = 100
-weights = np.array([min_weight+i for i in range(max_weight-min_weight+1)])
+# min_height = 150
+# max_height = 190
+# heights = np.array([min_height+i for i in range(max_height-min_height+1)])
+heights = np.arange(150, 190, step=10)
+
+# min_weight = 40
+# max_weight = 100
+# weights = np.array([min_weight+i for i in range(max_weight-min_weight+1)])
+weights = np.arange(40, 100, step=10)
 
 bar = progressbar.ProgressBar(maxval=len(ages)*len(heights)*len(weights), widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 bar.start()
@@ -103,6 +107,7 @@ for a in ages:
             bmi = w/(h/100*h/100)
             pvs = model_standard.predict([[a,h,w,bmr,bmi]])
             pvr = model_relax.predict([[a,h,w,bmr,bmi]])
+            print("Predict Result : standard({}), relax({})".format(pvs[0], pvr[0]))
             output_standard = output_standard.append({'age':a, 'height':h, 'weight':w, 'legrest':pvs[0]}, ignore_index=True)
             output_relax = output_relax.append({'age':a, 'height':h, 'weight':w, 'legrest':pvr[0]}, ignore_index=True)
             count = count+1
