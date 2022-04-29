@@ -19,5 +19,6 @@
             "priority": 4
         }
     ],
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "notebook.output.textLineLimit": 100
 }
