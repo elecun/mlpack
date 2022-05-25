@@ -100,8 +100,9 @@ class filterRUL(estimator):
         cumsum = stack_area["area"].dropna().cumsum(axis=0)
 
         result = {}
-        result["max_life"] = self._max_lifetime
-        result["rul"] = cumsum.values[-1]
+        result["max_life"] = self._max_life
+        result["life"] = cumsum.values[-1]
+        result["rul"] = (cumsum.values[-1]/self._max_life)*100
         return result
 
 
@@ -150,5 +151,5 @@ if __name__=="__main__":
     # 2. estimate from data
     model = filterRUL(life=1000000, model='knn_outcabin')
     result = model.estimate(data, '2022-03-01', '2022-04-01')
-    print("RUL Indication : {}% ({}/{})".format(result["rul"]/result["max_life"]*100, result["rul"],result["max_life"]))
+    print("RUL Indication : {}% ({}/{})".format(result["rul"], result["life"],result["max_life"]))
     
